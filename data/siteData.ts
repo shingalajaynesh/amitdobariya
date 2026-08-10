@@ -65,7 +65,7 @@ export const SITE_CONFIG = {
     'student motivation speaker Gujarat',
     'VASTRO Surat',
   ],
-  url: 'https://amitdobariya.com',
+  url: 'https://www.amitdobariya.in',
   ogImage: '/images/og-image.jpg',
   contact: {
     name: 'Amit Dobariya',
