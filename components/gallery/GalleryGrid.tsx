@@ -147,24 +147,13 @@ export default function GalleryGrid() {
               onClick={() => handleItemClick(item)}
               className="group relative rounded-2xl overflow-hidden shadow-md bg-slate-900 aspect-[4/3] cursor-pointer border border-slate-200 hover:border-brand-deep transition-all duration-300"
             >
-              {isVideo ? (
-                <video
-                  src={`${item.url}#t=0.5`}
-                  poster={item.thumbnailUrl}
-                  preload="metadata"
-                  muted
-                  playsInline
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
-                />
-              ) : (
-                <Image
-                  src={item.thumbnailUrl}
-                  alt={item.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
-                />
-              )}
+              <Image
+                src={item.thumbnailUrl}
+                alt={item.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
+              />
 
               {/* Media Badge Top Left */}
               <div className="absolute top-3 left-3 z-10">

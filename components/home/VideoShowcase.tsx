@@ -33,24 +33,13 @@ export default function VideoShowcase() {
               onClick={() => setActiveVideo(mainVideo)}
               className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-100 bg-slate-900 group cursor-pointer aspect-[16/9] max-h-[500px] w-full"
             >
-              {mainVideo.videoUrl && (mainVideo.videoUrl.endsWith('.mp4') || mainVideo.videoUrl.endsWith('.mov')) ? (
-                <video
-                  src={`${mainVideo.videoUrl}#t=0.5`}
-                  poster={mainVideo.thumbnailUrl}
-                  preload="metadata"
-                  muted
-                  playsInline
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80"
-                />
-              ) : (
-                <Image
-                  src={mainVideo.thumbnailUrl}
-                  alt={mainVideo.title}
-                  fill
-                  sizes="(max-width: 1200px) 100vw, 1200px"
-                  className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-80"
-                />
-              )}
+              <Image
+                src={mainVideo.thumbnailUrl}
+                alt={mainVideo.title}
+                fill
+                sizes="(max-width: 1200px) 100vw, 1200px"
+                className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-80"
+              />
               
               {/* Overlay Gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
@@ -92,24 +81,13 @@ export default function VideoShowcase() {
               className="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group flex flex-col justify-between"
             >
               <div className="relative aspect-[16/10] w-full bg-slate-900 overflow-hidden">
-                {video.videoUrl && (video.videoUrl.endsWith('.mp4') || video.videoUrl.endsWith('.mov')) ? (
-                  <video
-                    src={`${video.videoUrl}#t=0.5`}
-                    poster={video.thumbnailUrl}
-                    preload="metadata"
-                    muted
-                    playsInline
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
-                  />
-                ) : (
-                  <Image
-                    src={video.thumbnailUrl}
-                    alt={video.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
-                  />
-                )}
+                <Image
+                  src={video.thumbnailUrl}
+                  alt={video.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
+                />
                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors" />
                 
                 {/* Small Play Button */}
