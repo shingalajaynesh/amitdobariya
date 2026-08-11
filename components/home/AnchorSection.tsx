@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowRight, Mic, Building2, School, Sparkles, Trophy, Users } from 'lucide-react';
 import SectionHeading from '@/components/common/SectionHeading';
 import { ANCHOR_FORMATS } from '@/data/siteData';
+import { FEATURED_ANCHOR_IMAGE } from '@/data/mediaData';
 
 export default function AnchorSection() {
   const iconMap: Record<string, React.ElementType> = {
@@ -57,8 +58,8 @@ export default function AnchorSection() {
           <div className="lg:col-span-5 space-y-6">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-50 aspect-[4/5] w-full bg-slate-100 group">
               <Image
-                src="/images/amit-anchor-01.webp"
-                alt="Amit Dobariya Event Host and Professional Stage Anchor"
+                src={FEATURED_ANCHOR_IMAGE}
+                alt="Amit Dobariya Stage Anchor & Master of Ceremonies"
                 fill
                 sizes="(max-width: 768px) 100vw, 40vw"
                 className="object-cover group-hover:scale-105 transition-transform duration-500"

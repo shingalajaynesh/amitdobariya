@@ -7,6 +7,7 @@ import SectionHeading from '@/components/common/SectionHeading';
 import StatsSection from '@/components/home/StatsSection';
 import BookingCTA from '@/components/home/BookingCTA';
 import { SITE_CONFIG } from '@/data/siteData';
+import { FEATURED_ABOUT_IMAGE } from '@/data/mediaData';
 
 export const metadata: Metadata = {
   title: 'About Amit Dobariya | GTU Chemical Engineer, Speaker & Spiritual Coach',
@@ -36,7 +37,7 @@ export default function AboutPage() {
           <div className="lg:col-span-5 relative">
             <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-50 bg-slate-100">
               <Image
-                src="/images/amit-about.webp"
+                src={FEATURED_ABOUT_IMAGE}
                 alt="Amit Dobariya Motivational Speaker and Transformational Coach"
                 fill
                 sizes="(max-width: 768px) 100vw, 40vw"

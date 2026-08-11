@@ -62,13 +62,24 @@ export default function VideoModal({ video, onClose }: VideoModalProps) {
         {/* Video Player Container */}
         <div className="relative aspect-video w-full bg-black flex items-center justify-center">
           {video.videoUrl ? (
-            <iframe
-              src={video.videoUrl}
-              title={video.title}
-              className="w-full h-full border-0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+            video.videoUrl.includes('youtube.com') || video.videoUrl.includes('youtu.be') ? (
+              <iframe
+                src={video.videoUrl}
+                title={video.title}
+                className="w-full h-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            ) : (
+              <video
+                src={video.videoUrl}
+                controls
+                autoPlay
+                className="w-full h-full object-contain"
+              >
+                Your browser does not support HTML5 video playback.
+              </video>
+            )
           ) : (
             <div className="flex flex-col items-center justify-center p-8 text-center space-y-4">
               <div className="w-16 h-16 rounded-full bg-brand-fresh/20 border border-brand-fresh flex items-center justify-center text-brand-fresh">
@@ -80,9 +91,6 @@ export default function VideoModal({ video, onClose }: VideoModalProps) {
                 </h4>
                 <p className="text-sm text-slate-400 max-w-md">
                   {video.description}
-                </p>
-                <p className="text-xs text-brand-fresh font-medium mt-3">
-                  (Media configuration ready: Place YouTube embed or video MP4 URL in siteData.ts)
                 </p>
               </div>
             </div>

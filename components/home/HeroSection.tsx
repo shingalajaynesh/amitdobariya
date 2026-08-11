@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, MessageCircle, Mic, Sparkles, Award } from 'lucide-react';
 import { SITE_CONFIG } from '@/data/siteData';
+import { FEATURED_HERO_IMAGE } from '@/data/mediaData';
 
 export default function HeroSection() {
   return (
@@ -97,7 +98,7 @@ export default function HeroSection() {
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-white group max-w-md w-full">
               <div className="relative aspect-[4/5] w-full bg-slate-100">
                 <Image
-                  src="/images/amit-hero.webp"
+                  src={FEATURED_HERO_IMAGE}
                   alt="Amit Dobariya Motivational Speaker and Event Anchor"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"

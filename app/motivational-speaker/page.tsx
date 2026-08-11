@@ -6,6 +6,7 @@ import { School, GraduationCap, Briefcase, HeartHandshake, ShieldCheck, Target, 
 import SectionHeading from '@/components/common/SectionHeading';
 import BookingCTA from '@/components/home/BookingCTA';
 import { SPEAKING_TOPICS } from '@/data/siteData';
+import { FEATURED_SPEAKER_IMAGE } from '@/data/mediaData';
 
 export const metadata: Metadata = {
   title: 'Motivational Speaker in Surat & Gujarat | Amit Dobariya',
@@ -52,7 +53,7 @@ export default function MotivationalSpeakerPage() {
           <div className="lg:col-span-6">
             <div className="relative aspect-[16/10] rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-50">
               <Image
-                src="/images/amit-speaker-01.webp"
+                src={FEATURED_SPEAKER_IMAGE}
                 alt="Amit Dobariya Motivational Speaker Surat Gujarat"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"

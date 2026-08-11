@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowRight, GraduationCap, Compass, Sparkles, CheckCircle2 } from 'lucide-react';
 import SectionHeading from '@/components/common/SectionHeading';
 import { SITE_CONFIG } from '@/data/siteData';
+import { FEATURED_ABOUT_IMAGE } from '@/data/mediaData';
 
 export default function AboutPreview() {
   return (
@@ -24,7 +25,7 @@ export default function AboutPreview() {
           <div className="lg:col-span-5 relative">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-50 bg-slate-100 aspect-[4/5] w-full">
               <Image
-                src="/images/amit-about.webp"
+                src={FEATURED_ABOUT_IMAGE}
                 alt="Amit Dobariya Spiritual Coach and Transformational Speaker"
                 fill
                 sizes="(max-width: 768px) 100vw, 40vw"

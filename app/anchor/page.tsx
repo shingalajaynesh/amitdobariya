@@ -6,6 +6,7 @@ import { Mic, Building2, School, Sparkles, Trophy, Users, CheckCircle2, ArrowRig
 import SectionHeading from '@/components/common/SectionHeading';
 import BookingCTA from '@/components/home/BookingCTA';
 import { ANCHOR_FORMATS } from '@/data/siteData';
+import { FEATURED_ANCHOR_IMAGE } from '@/data/mediaData';
 
 export const metadata: Metadata = {
   title: 'Professional Anchor & Event Host in Surat | Amit Dobariya',
@@ -49,7 +50,7 @@ export default function AnchorPage() {
           <div className="lg:col-span-5 relative">
             <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-50">
               <Image
-                src="/images/amit-anchor-01.webp"
+                src={FEATURED_ANCHOR_IMAGE}
                 alt="Amit Dobariya Stage Anchor and Event Host Surat"
                 fill
                 sizes="(max-width: 768px) 100vw, 40vw"

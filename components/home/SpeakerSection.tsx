@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowRight, GraduationCap, ShieldCheck, Target, MessageSquare, HeartHandshake, Compass, CheckCircle } from 'lucide-react';
 import SectionHeading from '@/components/common/SectionHeading';
 import { SPEAKING_TOPICS } from '@/data/siteData';
+import { FEATURED_SPEAKER_IMAGE } from '@/data/mediaData';
 
 export default function SpeakerSection() {
   const iconMap: Record<string, React.ElementType> = {
@@ -32,7 +33,7 @@ export default function SpeakerSection() {
           <div className="lg:col-span-6 relative">
             <div className="relative rounded-3xl overflow-hidden shadow-xl aspect-[16/10] w-full border-4 border-white bg-slate-200 group">
               <Image
-                src="/images/amit-speaker-01.webp"
+                src={FEATURED_SPEAKER_IMAGE}
                 alt="Amit Dobariya Motivational Speaker on Stage"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
