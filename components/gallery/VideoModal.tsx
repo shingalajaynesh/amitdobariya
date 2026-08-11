@@ -91,6 +91,7 @@ export default function VideoModal({ video, onClose }: VideoModalProps) {
                 <video
                   ref={videoRef}
                   src={formattedUrl}
+                  poster={video.thumbnailUrl}
                   controls
                   playsInline
                   preload="metadata"
