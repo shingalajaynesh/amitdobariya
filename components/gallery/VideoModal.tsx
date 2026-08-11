@@ -112,14 +112,18 @@ export default function VideoModal({ video, onClose }: VideoModalProps) {
               </div>
             ) : (
               <video
+                src={formattedUrl}
                 controls
                 autoPlay
                 playsInline
-                onError={() => setHasError(true)}
+                preload="auto"
+                onError={(e) => {
+                  if (e.currentTarget.error && e.currentTarget.error.code !== 0) {
+                    setHasError(true);
+                  }
+                }}
                 className="w-full h-full object-contain"
               >
-                <source src={formattedUrl} type={isMov ? 'video/quicktime' : 'video/mp4'} />
-                <source src={formattedUrl} type="video/mp4" />
                 Your browser does not support HTML5 video playback.
               </video>
             )
