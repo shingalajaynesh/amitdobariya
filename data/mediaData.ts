@@ -3014,7 +3014,7 @@ export const MEDIA_ITEMS: MediaItem[] = [
   }
 ];
 
-export const FEATURED_HERO_IMAGE = "/Motivation/0O3A0630.jpg";
+export const FEATURED_HERO_IMAGE = "/Motivation/RUT_9322.JPG";
 export const FEATURED_ABOUT_IMAGE = "/Motivation/0O3A0657.jpg";
 export const FEATURED_SPEAKER_IMAGE = "/Motivation/0O3A0665.jpg";
 export const FEATURED_ANCHOR_IMAGE = "/Anchor/1785993375816284564.jpeg";

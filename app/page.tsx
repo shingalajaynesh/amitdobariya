@@ -1,6 +1,7 @@
 import React from 'react';
 import HeroSection from '@/components/home/HeroSection';
 import StatsSection from '@/components/home/StatsSection';
+import ClientLogosTicker from '@/components/home/ClientLogosTicker';
 import AboutPreview from '@/components/home/AboutPreview';
 import SpeakerSection from '@/components/home/SpeakerSection';
 import AnchorSection from '@/components/home/AnchorSection';
@@ -16,6 +17,7 @@ export default function HomePage() {
     <>
       <HeroSection />
       <StatsSection />
+      <ClientLogosTicker />
       <AboutPreview />
       <SpeakerSection />
       <AnchorSection />
