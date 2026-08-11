@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { X, Play, Volume2, AlertCircle, ExternalLink } from 'lucide-react';
+import React, { useEffect, useState, useRef } from 'react';
+import { X, Play, Volume2, ExternalLink } from 'lucide-react';
 import { VideoItem } from '@/data/siteData';
 
 interface VideoModalProps {
@@ -10,10 +10,11 @@ interface VideoModalProps {
 }
 
 export default function VideoModal({ video, onClose }: VideoModalProps) {
-  const [hasError, setHasError] = useState(false);
+  const [playbackError, setPlaybackError] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    setHasError(false);
+    setPlaybackError(false);
   }, [video]);
 
   useEffect(() => {
@@ -36,7 +37,7 @@ export default function VideoModal({ video, onClose }: VideoModalProps) {
 
   const isYouTube = video.videoUrl && (video.videoUrl.includes('youtube.com') || video.videoUrl.includes('youtu.be'));
   
-  // Format URL safely
+  // Clean URL
   const formattedUrl = video.videoUrl
     ? encodeURI(decodeURIComponent(video.videoUrl))
     : '';
@@ -85,47 +86,39 @@ export default function VideoModal({ video, onClose }: VideoModalProps) {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
-            ) : hasError ? (
-              <div className="flex flex-col items-center justify-center p-8 text-center space-y-4 text-white max-w-md">
-                <div className="w-14 h-14 rounded-full bg-amber-500/20 border border-amber-500 flex items-center justify-center text-amber-400">
-                  <AlertCircle className="w-7 h-7" />
-                </div>
-                <div>
-                  <h4 className="text-base font-bold mb-1">
-                    Direct Video Stream Notice
-                  </h4>
-                  <p className="text-xs text-slate-300">
-                    {isMov 
-                      ? 'This video is stored in Apple QuickTime (.MOV) format which requires desktop playback.'
-                      : 'This video stream format could not be played directly in this browser.'}
-                  </p>
-                </div>
-                <a
-                  href={formattedUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-brand-deep text-white font-bold text-xs hover:bg-brand-dark transition-all"
-                >
-                  <span>Open Video in New Tab</span>
-                  <ExternalLink className="w-4 h-4" />
-                </a>
-              </div>
             ) : (
-              <video
-                src={formattedUrl}
-                controls
-                autoPlay
-                playsInline
-                preload="auto"
-                onError={(e) => {
-                  if (e.currentTarget.error && e.currentTarget.error.code !== 0) {
-                    setHasError(true);
-                  }
-                }}
-                className="w-full h-full object-contain"
-              >
-                Your browser does not support HTML5 video playback.
-              </video>
+              <div className="relative w-full h-full flex items-center justify-center">
+                <video
+                  ref={videoRef}
+                  src={formattedUrl}
+                  controls
+                  playsInline
+                  preload="metadata"
+                  onError={() => setPlaybackError(true)}
+                  className="w-full h-full object-contain"
+                >
+                  Your browser does not support HTML5 video playback.
+                </video>
+
+                {playbackError && (
+                  <div className="absolute inset-0 bg-slate-950/95 flex flex-col items-center justify-center p-6 text-center space-y-4 text-white">
+                    <p className="text-sm font-semibold text-slate-300 max-w-md">
+                      {isMov
+                        ? 'This video is in Apple QuickTime (.MOV) format. Click below to stream or download directly.'
+                        : 'Your browser requires opening this video stream in a new tab.'}
+                    </p>
+                    <a
+                      href={formattedUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-brand-deep text-white font-bold text-xs hover:bg-brand-dark transition-all"
+                    >
+                      <span>Open Video Stream</span>
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  </div>
+                )}
+              </div>
             )
           ) : (
             <div className="flex flex-col items-center justify-center p-8 text-center space-y-4">
@@ -147,9 +140,22 @@ export default function VideoModal({ video, onClose }: VideoModalProps) {
         {/* Modal Footer Details */}
         <div className="p-5 bg-slate-900 text-slate-300 text-xs flex items-center justify-between border-t border-slate-800">
           <span>Duration: {video.duration}</span>
-          <div className="flex items-center space-x-1 text-slate-400">
-            <Volume2 className="w-4 h-4 text-brand-fresh" />
-            <span>High Quality Audio & HD Presentation</span>
+          <div className="flex items-center space-x-4 text-slate-400">
+            {formattedUrl && !isYouTube && (
+              <a
+                href={formattedUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center space-x-1 text-brand-fresh hover:underline"
+              >
+                <span>Direct File Link</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            )}
+            <div className="flex items-center space-x-1">
+              <Volume2 className="w-4 h-4 text-brand-fresh" />
+              <span>HD Audio & Video</span>
+            </div>
           </div>
         </div>
       </div>
