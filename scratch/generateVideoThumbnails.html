@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Video Thumbnail Generator</title>
+</head>
+<body style="background: #111; color: #fff; font-family: sans-serif; padding: 20px;">
+  <h2>Extracting Video Thumbnails...</h2>
+  <div id="status">Starting...</div>
+  <div id="gallery" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;"></div>
+
+  <script>
+    const videos = [
+      { id: "m_1", url: "/Anchoring%20Video/AQMlaeKpPD-6_64Y6_g-16a7XtyKjHN09WtuC3Xg_36RTVU9Y_LNOexJNmc5j32FbcqrjiTMfD2Npbr3WdTAOJYcVyb6UbKu.mp4" },
+      { id: "m_2", url: "/Anchoring%20Video/AQMMFsGslUdLv5zwLe7EVlNnUwgyFZuMClslMl5_Js5BH0rr9HkBpQ8SHhiQj_7YyU5FTQAonXgQF8zSwMe-3w-3Ko-XQySc.mp4" },
+      { id: "m_3", url: "/Anchoring%20Video/AQMP2gpntaxyE66WIjiUye3FunRIEnMPptdwiqTn04-IKuDg_EAE5ILLM6M0Em-A8sfa35CEl1HWLrBxbMtOJYEO9PLilG0cMN3brWU.mp4" },
+      { id: "m_4", url: "/Anchoring%20Video/AQMxiEFHUhEC-mU93zy1HMJ22Cwxbm0UbGdBvXOuPFPId2TG0PF06xU36YgY88EMtDK3bbXrMcKcIa6bn2NEzHYBD9MdGMdq.mp4" },
+      { id: "m_5", url: "/Anchoring%20Video/AQNJuobmmC8xUi8WctcumARmTVFnFvpb1LcetrwuuxnCXlknDkuNqAU5LPtsu-vtb8yHGcGQX8hLQxMEw_AC2lUfnx-qN3cZ.mp4" },
+      { id: "m_6", url: "/Anchoring%20Video/AQNsNYco77yOxnyWBsdkddzhkXLl7J5EMjPAxnSIRRbE3BVIj0VJ1osWPCtLaPM5oDI-cUaaQ-XZS8dKCtw5gywy_RgOpb-7.mp4" },
+      { id: "m_7", url: "/Anchoring%20Video/AQOc-vrcQS9qmV-ylZqNfgq8oSM6rJvZ7wEl92U57SUjozH2UkwhFusNRe78DUjGTCX-jawN-P5plDiBAuGXdqctJdncZUwo4Aj-l_c%20(1).mp4" },
+      { id: "m_8", url: "/Anchoring%20Video/AQOoxuPLSlln3n_vShofszqSNBFmf-L-Znxk7LqWXrRcApSz9nPV2mBGZdDGAt0sMKQkYHqtK16TeIaFrScBEa0-oB9Ecz4n.mp4" },
+      { id: "m_9", url: "/Anchoring%20Video/AQPA2dl3XKNT-qle_hcfYZ5IIQEVASj0a5nx5lSBbZxOUl7-uGnb_0cFeS6aTInJ_iX2wFmk0rAAUrcWGdSF_DyD_CnfyTG0.mp4" },
+      { id: "m_10", url: "/Anchoring%20Video/AQP_hVpMBRM2_fUn_OaK64peDIaAi3aInncWnT_rmnCNOfJVUwB0Gf0fwIyVi67AoUEHLWUMkGxd9H1qWGxPEhy6..mp4" },
+      { id: "m_11", url: "/Anchoring%20Video/copy_761D1F5E-60E7-4297-9FCB-1811BCE2E65D.mov" },
+      { id: "m_12", url: "/Anchoring%20Video/Engagement%20Review%20by%20Client%20If%20you%20want%20to%20make%20your%20event%20unforgettable%20and%20memorable%2C%20Book%20Anc.mp4" },
+      { id: "m_13", url: "/Motivational%20Video/AQN0EuLTbheON7zuqPZI8xxrwMujWS1tV1jAVR0G2B4yNDcmdM24smOMVrvnAFNF0LSrpgdtaJiSQGdvSg7nWtWrult-f3L2.mp4" },
+      { id: "m_14", url: "/Motivational%20Video/AQNB4QrdJ-Xm_E-68FChIprwaK9JJaIUKyZgZi6SqppL3AGAjS0WmkFaEm3yIoyK3F5hI5SG4KJyTGi0gNldJSkVFALg0Jue.mp4" },
+      { id: "m_15", url: "/Motivational%20Video/copy_1B522B9A-D2BD-4BF9-AE6C-B241A1A0998B(1).MOV" },
+      { id: "m_16", url: "/Motivational%20Video/copy_1B522B9A-D2BD-4BF9-AE6C-B241A1A0998B.MOV" },
+      { id: "m_17", url: "/Motivational%20Video/copy_3904E3A8-D33A-4E32-AF68-CB4E31C58519.MOV" },
+      { id: "m_18", url: "/Motivational%20Video/Document%20from%20Amit%20Dobariya(1).mov" },
+      { id: "m_19", url: "/Motivational%20Video/Document%20from%20Amit%20Dobariya.mov" },
+      { id: "m_20", url: "/Motivational%20Video/Video-55084.mp4" },
+      { id: "m_21", url: "/Motivational%20Video/Video-59569.mp4" },
+      { id: "m_22", url: "/Motivational%20Video/Video-77784.mp4" },
+      { id: "m_23", url: "/Motivational%20Video/Video-94932.mp4" },
+      { id: "m_24", url: "/Motivational%20Video/Video-95704.mp4" }
+    ];
+
+    async function generateThumbnail(item) {
+      return new Promise((resolve) => {
+        const video = document.createElement('video');
+        video.src = item.url;
+        video.crossOrigin = 'anonymous';
+        video.currentTime = 1.0;
+        video.muted = true;
+
+        video.onseeked = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = 640;
+          canvas.height = 360;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+          
+          const img = document.createElement('img');
+          img.src = dataUrl;
+          img.style.width = '200px';
+          img.title = item.id;
+          document.getElementById('gallery').appendChild(img);
+
+          // Send to local server to save
+          fetch('/api/save-thumbnail', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: item.id, dataUrl })
+          }).then(() => resolve()).catch(() => resolve());
+        };
+
+        video.onerror = () => {
+          console.error("Error loading video", item.url);
+          resolve();
+        };
+      });
+    }
+
+    async function processAll() {
+      for (const item of videos) {
+        document.getElementById('status').innerText = 'Processing ' + item.id + '...';
+        await generateThumbnail(item);
+      }
+      document.getElementById('status').innerText = 'All Thumbnails Processed!';
+    }
+
+    window.onload = processAll;
+  </script>
+</body>
+</html>
