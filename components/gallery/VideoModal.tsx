@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useEffect } from 'react';
-import { X, Play, Volume2 } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { X, Play, Volume2, AlertCircle, ExternalLink } from 'lucide-react';
 import { VideoItem } from '@/data/siteData';
 
 interface VideoModalProps {
@@ -10,6 +10,12 @@ interface VideoModalProps {
 }
 
 export default function VideoModal({ video, onClose }: VideoModalProps) {
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    setHasError(false);
+  }, [video]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -27,6 +33,15 @@ export default function VideoModal({ video, onClose }: VideoModalProps) {
   }, [video, onClose]);
 
   if (!video) return null;
+
+  const isYouTube = video.videoUrl && (video.videoUrl.includes('youtube.com') || video.videoUrl.includes('youtu.be'));
+  
+  // Format URL safely
+  const formattedUrl = video.videoUrl
+    ? encodeURI(decodeURIComponent(video.videoUrl))
+    : '';
+
+  const isMov = formattedUrl.toLowerCase().includes('.mov');
 
   return (
     <div
@@ -62,7 +77,7 @@ export default function VideoModal({ video, onClose }: VideoModalProps) {
         {/* Video Player Container */}
         <div className="relative aspect-video w-full bg-black flex items-center justify-center">
           {video.videoUrl ? (
-            video.videoUrl.includes('youtube.com') || video.videoUrl.includes('youtu.be') ? (
+            isYouTube ? (
               <iframe
                 src={video.videoUrl}
                 title={video.title}
@@ -70,13 +85,41 @@ export default function VideoModal({ video, onClose }: VideoModalProps) {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
+            ) : hasError ? (
+              <div className="flex flex-col items-center justify-center p-8 text-center space-y-4 text-white max-w-md">
+                <div className="w-14 h-14 rounded-full bg-amber-500/20 border border-amber-500 flex items-center justify-center text-amber-400">
+                  <AlertCircle className="w-7 h-7" />
+                </div>
+                <div>
+                  <h4 className="text-base font-bold mb-1">
+                    Direct Video Stream Notice
+                  </h4>
+                  <p className="text-xs text-slate-300">
+                    {isMov 
+                      ? 'This video is stored in Apple QuickTime (.MOV) format which requires desktop playback.'
+                      : 'This video stream format could not be played directly in this browser.'}
+                  </p>
+                </div>
+                <a
+                  href={formattedUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-brand-deep text-white font-bold text-xs hover:bg-brand-dark transition-all"
+                >
+                  <span>Open Video in New Tab</span>
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
             ) : (
               <video
-                src={video.videoUrl}
                 controls
                 autoPlay
+                playsInline
+                onError={() => setHasError(true)}
                 className="w-full h-full object-contain"
               >
+                <source src={formattedUrl} type={isMov ? 'video/quicktime' : 'video/mp4'} />
+                <source src={formattedUrl} type="video/mp4" />
                 Your browser does not support HTML5 video playback.
               </video>
             )
